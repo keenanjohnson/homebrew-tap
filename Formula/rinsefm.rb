@@ -1,36 +1,36 @@
 class Rinsefm < Formula
   desc "Stream Rinse FM (or any Icecast/Shoutcast URL) in your terminal with a live audio spectrum visualizer and now-playing metadata."
   homepage "https://github.com/keenanjohnson/rinse-cli"
-  version "0.1.0"
+  version "0.1.1"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.0/rinsefm-aarch64-apple-darwin.tar.xz"
-      sha256 "011b62b35604205acc6aecbfa2a0654740256cedd3620c22ba01664fd377eb58"
+      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.1/rinsefm-aarch64-apple-darwin.tar.xz"
+      sha256 "ac9af68359538be9a3ec6d206a25047e889c0ea572dee7f0c35553b3081997e3"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.0/rinsefm-x86_64-apple-darwin.tar.xz"
-      sha256 "98178f85b3363ee2a12aefc4b93d6ae619d31d8bb7b7522a2b1a64ddedc856fd"
+      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.1/rinsefm-x86_64-apple-darwin.tar.xz"
+      sha256 "20a8dc7a5db12c161fe1d3bac80b26893d94f94967af2bc4bfc81498e6c64fc1"
     end
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.0/rinsefm-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "ef6cb2e826bf88c904cf87ad8071c79e41f58e956d8578b027809c56121f8f26"
+      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.1/rinsefm-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "c1e9923ab259b63bb65f7c43a1f7fb1690392d860b63f3d4b27e92d3496ce7b2"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.0/rinsefm-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "f3d37b497404e56849b264e685886c05648b7636d1cb8c61d5e299bfca5501f5"
+      url "https://github.com/keenanjohnson/rinse-cli/releases/download/v0.1.1/rinsefm-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "7663a11a010869f3f4617b9a4d2f416e109aa619acac93a0c66ba3ca61b7dfe3"
     end
   end
   license "MIT"
   depends_on "ffmpeg"
 
   BINARY_ALIASES = {
-    "aarch64-apple-darwin": {},
+    "aarch64-apple-darwin":      {},
     "aarch64-unknown-linux-gnu": {},
-    "x86_64-apple-darwin": {},
-    "x86_64-unknown-linux-gnu": {}
-  }
+    "x86_64-apple-darwin":       {},
+    "x86_64-unknown-linux-gnu":  {},
+  }.freeze
 
   def target_triple
     cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
@@ -48,18 +48,10 @@ class Rinsefm < Formula
   end
 
   def install
-    if OS.mac? && Hardware::CPU.arm?
-      bin.install "rinsefm"
-    end
-    if OS.mac? && Hardware::CPU.intel?
-      bin.install "rinsefm"
-    end
-    if OS.linux? && Hardware::CPU.arm?
-      bin.install "rinsefm"
-    end
-    if OS.linux? && Hardware::CPU.intel?
-      bin.install "rinsefm"
-    end
+    bin.install "rinsefm" if OS.mac? && Hardware::CPU.arm?
+    bin.install "rinsefm" if OS.mac? && Hardware::CPU.intel?
+    bin.install "rinsefm" if OS.linux? && Hardware::CPU.arm?
+    bin.install "rinsefm" if OS.linux? && Hardware::CPU.intel?
 
     install_binary_aliases!
 
